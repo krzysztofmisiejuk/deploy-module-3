@@ -42,7 +42,8 @@ export default async function Products({
 	queryParams.set('limit', limitPerPage.toString())
 	queryParams.set('order', currentOrder.toString())
 
-	const apiUrl = `http://localhost:3000/api/product?${queryParams.toString()}`
+	const baseUrl = process.env.NEXT_PUBLIC_VERCEL_URL || 'http://localhost:3000'
+	const apiUrl = `${baseUrl}/api/product?${queryParams.toString()}`
 
 	const response = await fetch(apiUrl, { cache: 'no-store' })
 	const data = await response.json()
@@ -51,7 +52,7 @@ export default async function Products({
 		<section className='flex flex-col items-center justify-center text-neutral-900'>
 			<div className='border-t-1 border-gray-200 mt-10 w-screen'></div>
 			<div className='flex flex-col md:flex-row w-full items-start justify-start flex-1'>
-				<Sidebar products={products}/>
+				<Sidebar products={products} />
 				<ProductList
 					products={data.products}
 					numberOfProducts={data?.totalProducts}

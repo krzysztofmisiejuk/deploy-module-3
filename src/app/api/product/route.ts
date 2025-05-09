@@ -36,7 +36,7 @@ export async function GET(req: NextRequest) {
 		)
 	} else if (order === 'asc') {
 		filtered.sort((a, b) => (a.discount || a.price) - (b.discount || b.price))
-	} else if (order === 'dsc') {
+	} else if (order === 'desc') {
 		filtered.sort((a, b) => (b.discount || b.price) - (a.discount || a.price))
 	}
 

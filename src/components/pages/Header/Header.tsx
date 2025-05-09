@@ -16,7 +16,7 @@ export default async function Header({ session }: { session: Session | null }) {
 
 	return (
 		<header className='flex flex-col gap-10 px-10 py-8  text-neutral-900'>
-			<div className='flex justify-between flex-col-reverse gap-y-3 sm:flex-row text-2xl sm:text-3xl rounded-md font-semibold'>
+			<div className='flex  justify-center sm:justify-between flex-col-reverse gap-y-3 sm:flex-row text-2xl sm:text-3xl rounded-md font-semibold'>
 				<Logo />
 				<HeaderPanel session={session} />
 			</div>
