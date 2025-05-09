@@ -21,11 +21,11 @@ type NewAdressData = z.infer<typeof newAdressSchema>
 export default function NewAddress() {
 	const [, setAlert] = useContext(AlertContext)
 	const router = useRouter()
-	const BASE_URL = process.env.BASE_URL
+	// const BASE_URL = process.env.BASE_URL
 
 	async function updateAddress(data: AddressType) {
 		try {
-			const response = await fetch(`${BASE_URL}/api/address`, {
+			const response = await fetch(`/api/address`, {
 				method: 'POST',
 				headers: { 'Content-type': 'application/json' },
 				body: JSON.stringify({

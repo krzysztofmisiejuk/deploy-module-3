@@ -18,7 +18,7 @@ export default function RegisterForm() {
 	const [showConfirmPassword, setShowConfirmPassword] = useState<boolean>(false)
 	const [, setAlert] = useContext(AlertContext)
 	const router = useRouter()
-	const BASE_URL = process.env.BASE_URL
+	// const BASE_URL = process.env.BASE_URL
 
 	const form = useForm<RegisterFormData>({
 		resolver: zodResolver(registerSchema),
@@ -35,7 +35,7 @@ export default function RegisterForm() {
 
 	async function register(data: User) {
 		try {
-			const response = await fetch(`${BASE_URL}/api/register`, {
+			const response = await fetch(`/api/register`, {
 				method: 'POST',
 				headers: { 'Content-type': 'application/json' },
 				body: JSON.stringify({ data }),
