@@ -1,6 +1,5 @@
-export default function Logo({ size = 'md' }: { size?: 'sm' | 'md' | 'lg' | "resp" }) {
+export default function Logo({ size = 'md' }: { size?: 'sm' | 'md' | 'lg' }) {
 	const sizeClasses = {
-		resp: "w-52 md:-w-60",
 		sm: 'w-52',
 		md: 'w-60',
 		lg: 'w-[320px]',
