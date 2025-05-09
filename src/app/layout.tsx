@@ -6,6 +6,7 @@ import { AlertProvider } from '@/contexts'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '@/lib/authOptions'
 import { Analytics } from "@vercel/analytics/next"
+import { SpeedInsights } from '@vercel/speed-insights/next';
 
 const inter = Inter({
 	subsets: ['latin'],
@@ -47,6 +48,7 @@ export default async function RootLayout({
 					</AlertProvider>
 				</SessionProviderWrapper>
 				<Analytics />
+				<SpeedInsights />
 			</body>
 		</html>
 	)
