@@ -6,7 +6,7 @@ import { authOptions } from '@/lib/authOptions'
 import { getAddressByUserId, getOrdersByUserId } from '@/lib/db'
 
 export const metadata: Metadata = {
-	title: 'Dashboard',
+	title: 'Profile',
 }
 
 export default async function ProfilePage() {

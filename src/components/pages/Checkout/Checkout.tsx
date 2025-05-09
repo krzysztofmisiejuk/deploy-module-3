@@ -18,6 +18,7 @@ export default function Checkout({
 	const [productsList, setProductList] = useState<ProductInCart[]>([])
 	const router = useRouter()
 	const [, setAlert] = useContext(AlertContext)
+	const BASE_URL = process.env.BASE_URL
 
 	useEffect(() => {
 		const cart = loadCart()
@@ -58,7 +59,7 @@ export default function Checkout({
 		try {
 			const orderNumber = await generateOrderId(orderLength)
 
-			const response = await fetch('http://localhost:3000/api/order', {
+			const response = await fetch(`${BASE_URL}/api/order`, {
 				method: 'POST',
 				headers: { 'Content-type': 'application/json' },
 				body: JSON.stringify({ data, orderNumber }),

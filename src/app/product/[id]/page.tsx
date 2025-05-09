@@ -11,8 +11,8 @@ export default async function ProductDetails({
 	params,
 }: ProductDetailParamProps) {
 	const { id } = await params
-	const baseUrl = process.env.BASE_URL
-	const response = await fetch(`${baseUrl}/api/product/${id}`)
+	const BASE_URL = process.env.BASE_URL
+	const response = await fetch(`${BASE_URL}/api/product/${id}`)
 	const product: Product = await response.json()
 	const randomDate: string = getEstimatedArrival()
 

@@ -42,8 +42,8 @@ export default async function Products({
 	queryParams.set('limit', limitPerPage.toString())
 	queryParams.set('order', currentOrder.toString())
 
-	const baseUrl = process.env.BASE_URL
-	const apiUrl = `${baseUrl}/api/product?${queryParams.toString()}`
+	const BASE_URL = process.env.BASE_URL
+	const apiUrl = `${BASE_URL}/api/product?${queryParams.toString()}`
 
 	const response = await fetch(apiUrl, { cache: 'no-store' })
 	const data = await response.json()
