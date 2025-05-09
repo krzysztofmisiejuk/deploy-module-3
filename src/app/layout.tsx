@@ -5,6 +5,7 @@ import { Alert, Footer, Header, SessionProviderWrapper } from '@/components'
 import { AlertProvider } from '@/contexts'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '@/lib/authOptions'
+import { Analytics } from "@vercel/analytics/next"
 
 const inter = Inter({
 	subsets: ['latin'],
@@ -45,6 +46,7 @@ export default async function RootLayout({
 						</div>
 					</AlertProvider>
 				</SessionProviderWrapper>
+				<Analytics />
 			</body>
 		</html>
 	)
