@@ -1,0 +1,95 @@
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql" 
+  url      = env("DATABASE_URL")
+}
+
+model Product {
+  id          Int       @id @default(autoincrement())
+  name        String
+  description String
+  price       Float
+  discount    Float? 
+  stock       Int
+  imageUrl    String?
+  categoryId  Int
+  brandId     Int
+  category    Category  @relation(fields: [categoryId], references: [id])
+  brand       Brand     @relation(fields: [brandId], references: [id])
+  categoryName String   
+  brandName    String   
+  orderItems  OrderItem[]
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+}
+
+model Category {
+  id          Int       @id @default(autoincrement())
+  name        String
+  description String?
+  image       String?
+  imgCarousel String?
+  exploreInfo String?
+
+  products    Product[]
+}
+
+model Brand {
+  id       Int       @id @default(autoincrement())
+  name     String
+  image  String?
+  products Product[]
+}
+
+model User {
+  id           Int       @id @default(autoincrement())
+  firstName    String
+  email        String    @unique
+  passwordHash String
+  mobileNumber String    
+  image        String?
+  addresses    Address[]
+  orders       Order[]
+  createdAt    DateTime  @default(now())
+}
+
+
+model Address {
+  id       Int    @id @default(autoincrement())
+  street   String   
+  city     String
+  zipCode  String
+  country  String
+  province String 
+  userId   Int    
+isMainAddress Boolean @default(false)
+  user     User   @relation(fields: [userId], references: [id])
+}
+
+model Order {
+  id          Int         @id @default(autoincrement())
+  orderNumber String      @unique
+  userId      Int
+  createdAt   DateTime    @default(now())
+  status      String
+  totalAmount Float
+  user        User        @relation(fields: [userId], references: [id])
+  items       OrderItem[]
+}
+
+model OrderItem {
+  id              Int     @id @default(autoincrement())
+  orderId         Int
+  productId       Int
+  quantity        Int
+  priceAtPurchase Float
+  color           String  @default("default") 
+  hasProtection   Boolean @default(false) 
+  order           Order   @relation(fields: [orderId], references: [id])
+  product         Product @relation(fields: [productId], references: [id])
+}
+
