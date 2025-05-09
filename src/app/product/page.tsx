@@ -42,7 +42,7 @@ export default async function Products({
 	queryParams.set('limit', limitPerPage.toString())
 	queryParams.set('order', currentOrder.toString())
 
-	const baseUrl = process.env.NEXT_PUBLIC_VERCEL_URL || 'http://localhost:3000'
+	const baseUrl = process.env.NEXT_PUBLIC_VERCEL_URL
 	const apiUrl = `${baseUrl}/api/product?${queryParams.toString()}`
 
 	const response = await fetch(apiUrl, { cache: 'no-store' })
