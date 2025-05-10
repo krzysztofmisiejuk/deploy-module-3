@@ -54,6 +54,7 @@ export default function ProductCard({ product }: ProductCardProps) {
 				<CardHeader className='min-h-[204px] p-0'>
 					<div className='relative w-full min-h-[204px] rounded-md px-0 bg-white'>
 						<button
+							aria-label='Add to cart'
 							className='absolute p-1 top-3 left-3 bg-base-dark rounded-md cursor-pointer z-10 opacity-70 hover:opacity-100'
 							onClick={(e) => handleAddToCart(product, e)}
 						>

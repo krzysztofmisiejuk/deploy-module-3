@@ -38,7 +38,7 @@ export type Category = {
 	name: string
 	description?: string | null
 	image?: string | null
-	imgCarousel?: string | null
+	imgCarousel: string 
 	exploreInfo?: string | null
 }
 
