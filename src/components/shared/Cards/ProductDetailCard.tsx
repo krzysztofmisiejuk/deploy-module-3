@@ -234,7 +234,7 @@ export default function ProductDetailCard({
 							}
 							quantity={quantity}
 						/>
-						<span className='ml-4'>Stock: {product.stock}</span>
+						<span className='ml-4'>Stock: {product.stock - quantity}</span>
 					</div>
 				</div>
 				<div className='flex items-center justify-between'>
