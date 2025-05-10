@@ -36,7 +36,6 @@ export default async function Products({
 			queryParams.set('category', category)
 		}
 	}
-	
 	if (maxPrice) queryParams.set('maxPrice', maxPrice as string)
 	if (minPrice) queryParams.set('minPrice', minPrice as string)
 	queryParams.set('page', currentPage.toString())
@@ -51,7 +50,7 @@ export default async function Products({
 
 	return (
 		<section className='flex flex-col items-center justify-center text-neutral-900'>
-			
+			<div className='border-t-1 border-gray-200 mt-10 w-screen'></div>
 			<div className='flex flex-col md:flex-row w-full items-start justify-start flex-1'>
 				<Sidebar products={products} />
 				<ProductList
