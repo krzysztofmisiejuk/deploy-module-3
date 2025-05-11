@@ -23,19 +23,19 @@ export default function ExistingAddress({
 			<div className='flex gap-y-4 justify-between flex-wrap'>
 				<div className='flex flex-col gap-2'>
 					<Paragraph>Country</Paragraph>
-					<Paragraph size='lg'>{capitalize(mainAddress[0].country || "")}</Paragraph>
+					<Paragraph size='lg'>{capitalize(mainAddress[0]?.country || "")}</Paragraph>
 				</div>
 				<div className='flex flex-col gap-2'>
 					<Paragraph>Province</Paragraph>
-					<Paragraph size='lg'>{capitalize(mainAddress[0].province || "")}</Paragraph>
+					<Paragraph size='lg'>{capitalize(mainAddress[0]?.province || "")}</Paragraph>
 				</div>
 				<div className='flex flex-col gap-2'>
 					<Paragraph>City</Paragraph>
-					<Paragraph size='lg'>{capitalize(mainAddress[0].city || "")}</Paragraph>
+					<Paragraph size='lg'>{capitalize(mainAddress[0]?.city || "")}</Paragraph>
 				</div>
 				<div className='flex flex-col gap-2'>
 					<Paragraph>Postal Code</Paragraph>
-					<Paragraph size='lg'>{mainAddress[0].zipCode || ""}</Paragraph>
+					<Paragraph size='lg'>{mainAddress[0]?.zipCode || ""}</Paragraph>
 				</div>
 			</div>
 		</div>
