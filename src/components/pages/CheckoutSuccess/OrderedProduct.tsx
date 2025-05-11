@@ -1,6 +1,7 @@
 import { Heading, Paragraph } from '@/components'
 import { Badge } from '@/components/ui/badge'
 import { ProductInCart } from '@/types/types'
+import Image from 'next/image'
 
 export default function OrderedProduct({
 	product,
@@ -15,7 +16,7 @@ export default function OrderedProduct({
 			<div className='flex items-center justify-between'>
 				<div className='flex justify-center gap-8'>
 					<div className='p-3 border border-gray-200 rounded-md md:min-w-[172px] md:min-h-[138px] md:max-h-[138px] md:max-w-[172px]'>
-						<img
+						<Image
 							src={
 								product?.imageUrl
 									? product.imageUrl
@@ -23,6 +24,8 @@ export default function OrderedProduct({
 							}
 							alt={product.name}
 							className='w-full h-full'
+							width={172}
+							height={138}
 						/>
 					</div>
 				</div>

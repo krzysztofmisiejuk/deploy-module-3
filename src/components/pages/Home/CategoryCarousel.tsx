@@ -13,6 +13,7 @@ import {
 	CarouselNext,
 	type CarouselApi,
 } from '@/components/ui/carousel'
+// import Image from 'next/image'
 
 export default function CategoryCarousel({
 	categories,
@@ -77,6 +78,14 @@ export default function CategoryCarousel({
 									</div>
 
 									{category.imgCarousel && (
+										// <div className={`relative w-full h-[452px] `}>
+										// 	    <Image
+										//     src={category.imgCarousel}
+										//     alt={category.name}
+										//     className={getImageClass(category.name)}
+										//     fill // Używamy opcji fill, aby obraz wypełniał kontener
+										// />
+										// </div>
 										<img
 											src={category.imgCarousel}
 											alt={category.name}

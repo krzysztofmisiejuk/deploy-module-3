@@ -30,6 +30,7 @@ export default function QuantityCounter({
 				size={size}
 				iconLeft={<MinusIcon />}
 				onClick={handleDecrease}
+				aria-label='decrease quantity'
 			></Button>
 			<span>{quantity}</span>
 			<Button
@@ -37,6 +38,7 @@ export default function QuantityCounter({
 				size={size}
 				iconLeft={<PlusIcon />}
 				onClick={handleIncrease}
+				aria-label='increase quantity'
 			></Button>
 		</div>
 	)

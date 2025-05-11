@@ -1,6 +1,7 @@
 'use client'
 import { useRouter } from 'next/navigation'
 import { Button, Heading, Paragraph, ArrowRight } from '@/components'
+import Image from 'next/image'
 
 export default function ContactUs() {
 	const router = useRouter()
@@ -35,10 +36,12 @@ export default function ContactUs() {
 				</div>
 			</div>
 			<div className='flex justify-center h-full max-w-[600px] w-full'>
-				<img
+				<Image
 					src='https://i.ibb.co/vxzBJvDj/Image.png'
 					alt='contact-img'
 					className='w-full'
+					width={600}
+					height={400}
 				/>
 			</div>
 		</div>

@@ -1,5 +1,6 @@
 'use client'
 import { useContext, useState } from 'react'
+import Image from 'next/image' // Importujemy komponent Image
 import { AlertContext } from '@/contexts'
 import { ProductInCart } from '@/types/types'
 import { handleQuantityChange } from '@/lib/cartActions'
@@ -33,7 +34,7 @@ export default function ProductCart({
 			<div className='flex flex-col sm:flex-row gap-8 rounded-md flex-1'>
 				<div className='flex justify-center gap-8'>
 					<div className='p-3 border border-gray-200 rounded-md md:min-w-[172px] md:min-h-[138px] md:max-h-[138px] md:max-w-[172px]'>
-						<img
+						<Image
 							src={
 								product?.imageUrl
 									? product?.imageUrl
@@ -41,6 +42,8 @@ export default function ProductCart({
 							}
 							alt='product'
 							className='w-full h-full'
+							width={172}
+							height={138}
 						/>
 					</div>
 				</div>

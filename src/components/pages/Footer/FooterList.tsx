@@ -11,7 +11,7 @@ export default function FooterList() {
 						className='flex flex-col gap-2 md:gap-8 w-[21%] min-w-36'
 					>
 						<Heading
-							Tag='h6'
+							Tag='h3'
 							size='xs'
 							weight='semibold'
 							className='text-neutral-900'

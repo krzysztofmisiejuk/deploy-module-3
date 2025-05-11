@@ -30,16 +30,12 @@ function BreadcrumpField({
 }
 
 export default function BreadCrumpItems({ products }: { products: Product[] }) {
-	// const products: Product[] = useContext(ProductContext)
 	const pathname = usePathname()
 	const segments = pathname.split('/').filter(Boolean)
 	const allSegments = ['home', ...segments]
-
 	const isProductPage = /\d+/.test(allSegments[allSegments.length - 1])
 	const productId = isProductPage ? segments[1] : null
-
 	const product = productId ? products.find((p) => p.id === +productId) : null
-
 	const productName = product ? `${product.brandName} ${product.name}` : null
 
 	if (productName) {
@@ -54,16 +50,12 @@ export default function BreadCrumpItems({ products }: { products: Product[] }) {
 				const isLast = index === allSegments.length - 1
 
 				return (
-					<div
+					<BreadcrumpField
 						key={href}
-						className='flex items-center gap-2'
-					>
-						<BreadcrumpField
-							route={segment}
-							href={href}
-							isLast={isLast}
-						/>
-					</div>
+						route={segment}
+						href={href}
+						isLast={isLast}
+					/>
 				)
 			})}
 		</BreadcrumbList>

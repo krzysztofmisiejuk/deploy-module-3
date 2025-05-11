@@ -1,5 +1,6 @@
 'use client'
 import { useContext, useState } from 'react'
+import Image from 'next/image'
 import { Product, ProductInCart } from '@/types/types'
 import { AlertContext } from '@/contexts'
 import { loadCart, saveCart, handleQuantityChange } from '@/lib/cartActions'
@@ -85,55 +86,59 @@ export default function ProductDetailCard({
 		<div className='flex flex-wrap gap-8 py-10 text-neutral-900'>
 			<div className='flex flex-col md:flex-row gap-12 pb-12 flex-grow basis-2/3 min-w-[325px] border-b border-gray-200'>
 				<div className='flex flex-col gap-8 flex-grow basis-1/2 min-w-[325px]'>
-					<div className='relative p-3 min-h-[340px] bg-base-dark border border-gray-200 rounded-md'>
+					<div className='relative p-3  min-h-[340px] bg-base-dark border border-gray-200 rounded-md'>
 						{mainImg && (
-							<img
-								src={mainImg}
-								alt={product.name}
-								className='w-full h-full rounded-md'
-							/>
+							<div className='w-full h-full rounded-md overflow-hidden relative'>
+								<Image
+									src={mainImg}
+									alt={product.name}
+									className='w-full h-full'
+									fill
+									sizes='(max-width: 768px) 100vw, 50vw'
+								/>
+							</div>
 						)}
 					</div>
 					<div className='flex gap-4'>
 						<div className='bg-gray-400 flex-grow basis-1/3 min-h-[99px] rounded-md'>
 							{product.imageUrl && (
-								<img
+								<Image
 									src={product.imageUrl}
-									alt=''
-									onClick={(e) => {
-										setMainImg((e.target as HTMLImageElement).src)
-									}}
+									alt='main-img'
+									onClick={() => setMainImg(product.imageUrl ?? '')}
 									className={`h-full w-full rounded-md ${
 										mainImg === product.imageUrl &&
 										'border-2 border-primary-500 rounded-md'
 									}`}
+									width={99}
+									height={99}
 								/>
 							)}
 						</div>
 						<div className='bg-gray-500 flex-grow basis-1/3 min-h-[99px] rounded-md'>
-							<img
+							<Image
 								src={firstImgSrc}
 								alt='img-2'
-								onClick={(e) => {
-									setMainImg((e.target as HTMLImageElement).src)
-								}}
+								onClick={() => setMainImg(firstImgSrc)}
 								className={`h-full w-full rounded-md ${
 									mainImg === firstImgSrc &&
 									'border-2 border-primary-500 rounded-md'
 								}`}
+								width={99}
+								height={99}
 							/>
 						</div>
 						<div className='bg-gray-600 flex-grow basis-1/3 min-h-[99px] rounded-md'>
-							<img
+							<Image
 								src={secondImgSrc}
 								alt='img-3'
-								onClick={(e) => {
-									setMainImg((e.target as HTMLImageElement).src)
-								}}
+								onClick={() => setMainImg(secondImgSrc)}
 								className={`h-full w-full rounded-md ${
 									mainImg === secondImgSrc &&
 									'border-2 border-primary-500 rounded-md'
 								}`}
+								width={99}
+								height={99}
 							/>
 						</div>
 					</div>

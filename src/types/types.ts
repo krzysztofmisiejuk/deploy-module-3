@@ -55,7 +55,7 @@ export interface Product {
 	price: number
 	discount?: number | null
 	stock: number
-	imageUrl?: string | null
+	imageUrl: string | null
 	categoryId: number
 	brandId: number
 	createdAt: string | Date
