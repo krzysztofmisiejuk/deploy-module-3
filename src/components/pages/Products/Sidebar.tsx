@@ -1,7 +1,7 @@
 'use client'
-
 import { useRouter, useSearchParams } from 'next/navigation'
-
+import { useState } from 'react'
+import { useDebouncedCallback } from 'use-debounce'
 import {
 	Heading,
 	CheckboxField,
@@ -16,7 +16,12 @@ import { Product } from '@/types/types'
 export default function Sidebar({ products }: { products: Product[] }) {
 	const router = useRouter()
 	const searchParams = useSearchParams()
-
+	const selectedBrands = searchParams.getAll('brand')
+	const selectedCategories = searchParams.getAll('category')
+	const initialMinPrice = searchParams.get('minPrice') || ''
+	const initialMaxPrice = searchParams.get('maxPrice') || ''
+	const [minPrice, setMinPrice] = useState(initialMinPrice)
+	const [maxPrice, setMaxPrice] = useState(initialMaxPrice)
 	const allBrands = Array.from(
 		new Set(products.map((product) => product.brandName))
 	).sort()
@@ -24,23 +29,15 @@ export default function Sidebar({ products }: { products: Product[] }) {
 		new Set(products.map((product) => product.categoryName))
 	).sort()
 
-	const selectedBrands = searchParams.getAll('brand')
-	const selectedCategories = searchParams.getAll('category')
-	const minPrice = searchParams.get('minPrice') || ''
-	const maxPrice = searchParams.get('maxPrice') || ''
-
-	const updateFilters = (
-		updatedBrands = selectedBrands,
-		updatedCategories = selectedCategories,
-		updatedMinPrice = minPrice,
-		updatedMaxPrice = maxPrice
-	) => {
+	const debouncedUpdatePriceFilters = useDebouncedCallback(() => {
 		const params = new URLSearchParams()
 
-		updatedBrands.forEach((brand) => params.append('brand', brand))
-		updatedCategories.forEach((category) => params.append('category', category))
-		if (updatedMinPrice) params.set('minPrice', updatedMinPrice)
-		if (updatedMaxPrice) params.set('maxPrice', updatedMaxPrice)
+		selectedBrands.forEach((brand) => params.append('brand', brand))
+		selectedCategories.forEach((category) =>
+			params.append('category', category)
+		)
+		if (minPrice) params.set('minPrice', minPrice)
+		if (maxPrice) params.set('maxPrice', maxPrice)
 
 		const currentOrder = searchParams.get('order') || 'lat'
 		const currentPage = searchParams.get('page') || '1'
@@ -51,10 +48,10 @@ export default function Sidebar({ products }: { products: Product[] }) {
 		params.set('limit', currentLimit)
 
 		router.push(`/product?${params.toString()}`)
-	}
+	}, 300)
 
 	return (
-		<div className='flex flex-col mx-auto gap-13 py-10 pr-10 min-w-[260px] max-w-[360px] w-1/4   border-gray-200 '>
+		<div className='flex flex-col mx-auto gap-13 py-10 pr-10 min-w-[260px] max-w-[360px] w-1/4 border-gray-200'>
 			<Accordion
 				type='multiple'
 				className='flex flex-col gap-13'
@@ -80,7 +77,16 @@ export default function Sidebar({ products }: { products: Product[] }) {
 										const updatedBrand = selectedBrands.includes(brand)
 											? selectedBrands.filter((b) => b !== brand)
 											: [...selectedBrands, brand]
-										updateFilters(updatedBrand, selectedCategories)
+										const params = new URLSearchParams()
+
+										updatedBrand.forEach((b) => params.append('brand', b))
+										selectedCategories.forEach((category) =>
+											params.append('category', category)
+										)
+										if (minPrice) params.set('minPrice', minPrice)
+										if (maxPrice) params.set('maxPrice', maxPrice)
+
+										router.push(`/product?${params.toString()}`)
 									}}
 									labelText={brand}
 								/>
@@ -108,7 +114,18 @@ export default function Sidebar({ products }: { products: Product[] }) {
 										const updatedCat = selectedCategories.includes(cat)
 											? selectedCategories.filter((c) => c !== cat)
 											: [...selectedCategories, cat]
-										updateFilters(selectedBrands, updatedCat)
+										const params = new URLSearchParams()
+
+										selectedBrands.forEach((brand) =>
+											params.append('brand', brand)
+										)
+										updatedCat.forEach((category) =>
+											params.append('category', category)
+										)
+										if (minPrice) params.set('minPrice', minPrice)
+										if (maxPrice) params.set('maxPrice', maxPrice)
+
+										router.push(`/product?${params.toString()}`)
 									}}
 									labelText={cat}
 								/>
@@ -133,13 +150,8 @@ export default function Sidebar({ products }: { products: Product[] }) {
 							type='number'
 							value={minPrice}
 							onChange={(e) => {
-								const value = e.target.value
-								updateFilters(
-									selectedBrands,
-									selectedCategories,
-									value,
-									maxPrice
-								)
+								setMinPrice(e.target.value)
+								debouncedUpdatePriceFilters()
 							}}
 						/>
 						<Input
@@ -147,13 +159,8 @@ export default function Sidebar({ products }: { products: Product[] }) {
 							type='number'
 							value={maxPrice}
 							onChange={(e) => {
-								const value = e.target.value
-								updateFilters(
-									selectedBrands,
-									selectedCategories,
-									minPrice,
-									value
-								)
+								setMaxPrice(e.target.value)
+								debouncedUpdatePriceFilters()
 							}}
 						/>
 					</AccordionContent>

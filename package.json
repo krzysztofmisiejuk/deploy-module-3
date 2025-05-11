@@ -43,6 +43,7 @@
 		"tailwind-merge": "^3.2.0",
 		"tailwindcss-pseudo-elements": "^2.0.0",
 		"tw-animate-css": "^1.2.5",
+		"use-debounce": "^10.0.4",
 		"zod": "^3.24.2"
 	},
 	"devDependencies": {

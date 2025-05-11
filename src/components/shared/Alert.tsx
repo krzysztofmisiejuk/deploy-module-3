@@ -40,7 +40,7 @@ export default function Alert() {
 	const current = styles[alert.type]
 
 	return (
-		<div className='flex px-10 py-3 gap-4'>
+		<div className='flex px-10 py-3 gap-4 sticky top-0 z-100'>
 			<div
 				className={clsx(
 					'flex items-center gap-4 w-full p-3 lg:p-4 text-base lg:text-xl text-neutral-900 rounded',
