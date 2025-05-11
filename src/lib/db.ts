@@ -1,4 +1,10 @@
-import { AddressType, OrderType, OrderWithItems, ProductInCart, User } from '@/types/types'
+import {
+	AddressType,
+	OrderType,
+	OrderWithItems,
+	ProductInCart,
+	User,
+} from '@/types/types'
 import { PrismaClient } from '@prisma/client'
 
 const globalForPrisma = global as unknown as { prisma: PrismaClient }
@@ -62,7 +68,12 @@ export async function getBrandById(brandId: number) {
 
 export async function getUserByEmail(email: string) {
 	return await prisma.user.findFirst({
-		where: { email },
+		where: {
+			email: {
+				equals: email,
+				mode: 'insensitive',
+			},
+		},
 	})
 }
 export async function getUserByMobileNumber(mobileNumber: string) {

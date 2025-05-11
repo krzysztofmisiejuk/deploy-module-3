@@ -18,8 +18,6 @@ export default function RegisterForm() {
 	const [showConfirmPassword, setShowConfirmPassword] = useState<boolean>(false)
 	const [, setAlert] = useContext(AlertContext)
 	const router = useRouter()
-	// const BASE_URL = process.env.BASE_URL
-
 	const form = useForm<RegisterFormData>({
 		resolver: zodResolver(registerSchema),
 		defaultValues: {
