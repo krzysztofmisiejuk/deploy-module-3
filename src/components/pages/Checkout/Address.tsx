@@ -8,6 +8,7 @@ import { AddressType } from '@/types/types'
 export default function Address({ addresses }: { addresses: AddressType[] }) {
 	const [showNewAdress, setShowNewAdress] = useState<boolean>(false)
 
+	console.log('ADresses', addresses)
 	return (
 		<div className='flex flex-col gap-4'>
 			<Heading
