@@ -8,7 +8,7 @@ export const metadata: Metadata = {
 export default async function Register() {
 	return (
 		<div className='flex flex-col justify-center items-center gap-8 my-[67px]'>
-			<Logo size='lg'/>
+			<Logo size='lg' />
 			<FormWrapper>
 				<RegisterForm />
 			</FormWrapper>

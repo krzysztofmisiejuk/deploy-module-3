@@ -22,6 +22,7 @@ export default function Sidebar({ products }: { products: Product[] }) {
 	const initialMaxPrice = searchParams.get('maxPrice') || ''
 	const [minPrice, setMinPrice] = useState(initialMinPrice)
 	const [maxPrice, setMaxPrice] = useState(initialMaxPrice)
+
 	const allBrands = Array.from(
 		new Set(products.map((product) => product.brandName))
 	).sort()
@@ -93,7 +94,6 @@ export default function Sidebar({ products }: { products: Product[] }) {
 							))}
 						</AccordionContent>
 					</AccordionItem>
-
 					<AccordionItem value='category'>
 						<AccordionTrigger className='pt-2 pb-5'>
 							<Heading
@@ -133,7 +133,6 @@ export default function Sidebar({ products }: { products: Product[] }) {
 						</AccordionContent>
 					</AccordionItem>
 				</div>
-
 				<AccordionItem value='price'>
 					<AccordionTrigger className='pt-2 pb-5'>
 						<Heading

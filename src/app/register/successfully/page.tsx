@@ -32,7 +32,6 @@ export default function RegisterSuccesfully() {
 						>
 							Thank you!
 						</Heading>
-
 						<Heading
 							Tag='h3'
 							size='sm'

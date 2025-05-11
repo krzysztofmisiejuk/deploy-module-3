@@ -13,7 +13,6 @@ export default function ContactLayout({
 	return (
 		<div className='space-y-6'>
 			<Breadcrumps />
-			
 			{children}
 		</div>
 	)

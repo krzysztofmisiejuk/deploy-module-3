@@ -92,7 +92,6 @@ export default function LoginFormStepTwo() {
 						</FormItem>
 					)}
 				/>
-
 				<FormField
 					control={form.control}
 					name='savePassword'
@@ -124,7 +123,6 @@ export default function LoginFormStepTwo() {
 						</FormItem>
 					)}
 				/>
-
 				<div className='flex flex-col gap-6'>
 					<Button
 						type='submit'

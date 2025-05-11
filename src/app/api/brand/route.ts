@@ -1,6 +1,5 @@
 import { getBrands } from "@/lib/db"
 
-
 export async function GET() {
     try {
         const brand = await getBrands()

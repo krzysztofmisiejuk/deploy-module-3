@@ -1,6 +1,6 @@
 'use client'
 import { signOut } from 'next-auth/react'
-import Image from 'next/image' // Import komponentu Image
+import Image from 'next/image'
 import { Button, Paragraph } from '@/components'
 
 interface ProfilePropsType {

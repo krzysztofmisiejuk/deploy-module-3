@@ -2,7 +2,6 @@ import Link from 'next/link'
 import { CategoriesProps } from '@/types/types'
 import { Heading, TileCard } from '@/components'
 
-
 export default async function Categories({
 	categories,
 }: {

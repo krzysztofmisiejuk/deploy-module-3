@@ -51,7 +51,6 @@ export default function Pagination({
 				>
 					Previous
 				</Button>
-
 				<Button
 					onClick={() => handlePageChange(currentPage + 1)}
 					disabled={currentPage === totalPages || isNoProdusts}

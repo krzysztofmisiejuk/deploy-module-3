@@ -60,7 +60,6 @@ export default function Profile({
 						Adresses
 					</Button>
 				</div>
-
 				{showTransactions &&
 					(orders.length > 0 ? (
 						orders.map((order) => (
@@ -72,11 +71,15 @@ export default function Profile({
 					) : (
 						<Paragraph>No transactions</Paragraph>
 					))}
-
 				{showAdresses &&
 					(addresses ? (
 						addresses.map((address) => {
-							return <ProfileAddress key={address?.id} address={address} />
+							return (
+								<ProfileAddress
+									key={address?.id}
+									address={address}
+								/>
+							)
 						})
 					) : (
 						<Paragraph>No addresses</Paragraph>

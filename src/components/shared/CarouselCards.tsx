@@ -28,6 +28,7 @@ export default function CarouselCards<T>({
 }: CarouselCardProps<T>) {
 	const [isAtEnd, setIsAtEnd] = useState(false)
 	const [api, setApi] = useState<CarouselApi | null>(null)
+	const itemWidth = cardWidth + gap
 
 	const checkPosition = useCallback(() => {
 		if (api) {
@@ -63,8 +64,6 @@ export default function CarouselCards<T>({
 		}
 	}
 
-	const itemWidth = cardWidth + gap
-
 	return (
 		<div className='flex flex-col gap-8'>
 			<div className='flex justify-between items-center flex-wrap'>
@@ -91,7 +90,6 @@ export default function CarouselCards<T>({
 					)}
 				</Button>
 			</div>
-
 			<Carousel
 				className='w-full carousel-container'
 				opts={{ align: 'start', loop: false }}

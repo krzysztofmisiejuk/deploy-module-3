@@ -8,7 +8,7 @@ type Variant =
 	| 'textPagination'
 	| 'quantity'
 	| 'underline'
-	| "logout"
+	| 'logout'
 type Size = 'xxs' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'xxl'
 type ButtonType = 'button' | 'submit' | 'reset'
 
@@ -32,8 +32,7 @@ const baseStyles: Record<Variant, string> = {
 	textPagination: 'bg-transparent border-0 font-medium',
 	quantity: 'font-medium',
 	underline: 'rounded-none',
-	logout: "bg-transparent rounded-none"
-
+	logout: 'bg-transparent rounded-none',
 }
 
 const colorStyles: Record<Variant, string> = {

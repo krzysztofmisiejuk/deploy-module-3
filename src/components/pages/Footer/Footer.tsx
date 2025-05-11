@@ -7,7 +7,7 @@ export default function Footer() {
 			<div className='flex flex-col gap-6 md:w-2/5 md:min-w-xs'>
 				<Logo />
 				<Paragraph className='max-w-52'>
-					© {new Date().getFullYear()} DevstockHub. All rights reserved.
+					© 2025 DevstockHub. All rights reserved.
 				</Paragraph>
 				<PaymentsList />
 			</div>

@@ -27,7 +27,6 @@ export default function ProductList({
 	const page = parseInt(searchParams.get('page') || '1')
 	const limit = parseInt(searchParams.get('limit') || '9')
 	const order = searchParams.get('order') || 'lat'
-
 	const totalPages = Math.ceil(numberOfProducts / limit)
 
 	const updateParams = (params: Record<string, string | number>) => {
@@ -60,7 +59,6 @@ export default function ProductList({
 						</SelectContent>
 					</Select>
 				</Label>
-
 				<Label className='flex gap-4 items-center font-semibold text-xl whitespace-nowrap'>
 					Show
 					<Select
@@ -86,7 +84,6 @@ export default function ProductList({
 					No products matching your criteria were found
 				</Paragraph>
 			)}
-
 			<div className='grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-12 justify-items-center'>
 				{products.map((product) => (
 					<ProductCard
@@ -95,7 +92,6 @@ export default function ProductList({
 					/>
 				))}
 			</div>
-
 			<Pagination
 				currentPage={page}
 				totalPages={totalPages}

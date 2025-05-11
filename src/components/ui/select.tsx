@@ -7,13 +7,16 @@ function Select({
 	...props
 }: React.ComponentProps<typeof SelectPrimitive.Root>) {
 	return (
-		<SelectPrimitive.Root data-slot='select' {...props} />
+		<SelectPrimitive.Root
+			data-slot='select'
+			{...props}
+		/>
 	)
 }
 
 function SelectTrigger({
 	className,
-	size = 'md', 
+	size = 'md',
 	children,
 	...props
 }: React.ComponentProps<typeof SelectPrimitive.Trigger> & {
