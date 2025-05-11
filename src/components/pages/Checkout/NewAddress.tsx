@@ -21,7 +21,6 @@ type NewAdressData = z.infer<typeof newAdressSchema>
 export default function NewAddress() {
 	const [, setAlert] = useContext(AlertContext)
 	const router = useRouter()
-	// const BASE_URL = process.env.BASE_URL
 
 	async function updateAddress(data: AddressType) {
 		try {

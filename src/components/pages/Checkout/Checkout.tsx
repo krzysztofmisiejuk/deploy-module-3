@@ -18,7 +18,6 @@ export default function Checkout({
 	const [productsList, setProductList] = useState<ProductInCart[]>([])
 	const router = useRouter()
 	const [, setAlert] = useContext(AlertContext)
-	// const BASE_URL = process.env.BASE_URL
 
 	useEffect(() => {
 		const cart = loadCart()
