@@ -4,7 +4,7 @@ import Image from 'next/image'
 
 export default function HeaderIconList({ userImg }: { userImg: string }) {
 	return (
-		<div className='flex items-center justify-between gap-7 '>
+		<div className='flex items-center justify-between gap-7 ml-auto'>
 			<Link
 				href='/cart'
 				aria-label='Cart'
