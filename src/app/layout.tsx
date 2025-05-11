@@ -5,8 +5,8 @@ import { Alert, Footer, Header, SessionProviderWrapper } from '@/components'
 import { AlertProvider } from '@/contexts'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '@/lib/authOptions'
-import { Analytics } from "@vercel/analytics/next"
-import { SpeedInsights } from '@vercel/speed-insights/next';
+import { Analytics } from '@vercel/analytics/next'
+import { SpeedInsights } from '@vercel/speed-insights/next'
 
 const inter = Inter({
 	subsets: ['latin'],
@@ -33,7 +33,7 @@ export default async function RootLayout({
 	return (
 		<html
 			lang='en'
-			className={inter.className}
+			className={`${inter.className} light`}
 		>
 			<body className='h-full bg-base-gray-bg'>
 				<SessionProviderWrapper>
@@ -41,7 +41,6 @@ export default async function RootLayout({
 						<div className='flex flex-col gap-2 rounded min-h-screen w-full max-w-[1440px]  mx-auto bg-base-dark-1'>
 							<Header session={session} />
 							<Alert />
-
 							<main className='flex-1 px-10 overflow-hidden'>{children}</main>
 							<Footer />
 						</div>

@@ -7,8 +7,6 @@ import {
 import { getCategories } from '@/lib/db'
 import { CategoriesProps } from '@/types/types'
 
-
-
 export default async function Home() {
 	const categories: CategoriesProps[] = await getCategories()
 	return (
