@@ -2,48 +2,29 @@
 import { useEffect, useState, useContext } from 'react'
 import { useRouter } from 'next/navigation'
 import { Checkbox } from '@/components/ui/checkbox'
-import { ProductInCart } from '@/types/types'
-import { loadCart, saveCart, updateCartQuantity } from '@/lib/cartActions'
-import { AlertContext } from '@/contexts'
+import { CartContext } from '@/contexts'
 import {
 	CheckboxField,
 	Paragraph,
 	PriceSummary,
 	ProductCart,
 } from '@/components'
+import { updateCartQuantity } from '@/lib/cartActions'
 
 export default function Cart() {
-	const [productsList, setProductList] = useState<ProductInCart[]>([])
+	const { productList, setProductList } = useContext(CartContext)!
 	const [isSelectAll, setIsSelectAll] = useState<boolean>(true)
 	const router = useRouter()
-	const [, setAlert] = useContext(AlertContext)
 
 	useEffect(() => {
-		const cart = loadCart()
-		setProductList(cart)
 		setIsSelectAll(
-			cart.length > 0 && cart.every((product) => product.isSelected)
+			productList.length > 0 &&
+				productList.every((product) => product.isSelected)
 		)
-	}, [])
-
-	useEffect(() => {
-		function handleStorageChange() {
-			const cart = loadCart()
-			setProductList(cart)
-			setIsSelectAll(
-				cart.length > 0 && cart.every((product) => product.isSelected)
-			)
-		}
-
-		window.addEventListener('storage', handleStorageChange)
-		return () => {
-			window.removeEventListener('storage', handleStorageChange)
-		}
-	}, [])
+	}, [productList])
 
 	function removeProductFromCart(productId: number) {
-		const updatedCart = productsList.filter((item) => item.id !== productId)
-		saveCart(updatedCart)
+		const updatedCart = productList.filter((item) => item.id !== productId)
 		setProductList(updatedCart)
 		setIsSelectAll(
 			updatedCart.length > 0 &&
@@ -53,19 +34,17 @@ export default function Cart() {
 
 	function handleSelectAllChange(checked: boolean) {
 		setIsSelectAll(checked)
-		const updatedCart = productsList.map((product) => ({
+		const updatedCart = productList.map((product) => ({
 			...product,
 			isSelected: checked,
 		}))
-		saveCart(updatedCart)
 		setProductList(updatedCart)
 	}
 
 	const handleProductCheckboxChange = (productId: number, checked: boolean) => {
-		const updatedCart = productsList.map((product) =>
+		const updatedCart = productList.map((product) =>
 			product.id === productId ? { ...product, isSelected: checked } : product
 		)
-		saveCart(updatedCart)
 		setProductList(updatedCart)
 		setIsSelectAll(updatedCart.every((product) => product.isSelected))
 	}
@@ -77,8 +56,8 @@ export default function Cart() {
 	return (
 		<section className='flex justify-center gap-12 py-10 text-neutral-900 w-full flex-col lg:flex-row'>
 			<div className='flex flex-col gap-8 flex-1 w-full'>
-				{productsList.length === 0 && <Paragraph>Cart is empty</Paragraph>}
-				{productsList.length > 0 && (
+				{productList.length === 0 && <Paragraph>Cart is empty</Paragraph>}
+				{productList.length > 0 && (
 					<>
 						<CheckboxField
 							id='select-all'
@@ -86,7 +65,7 @@ export default function Cart() {
 							onChange={handleSelectAllChange}
 							labelText='Select All'
 						/>
-						{productsList.map((product) => (
+						{productList.map((product) => (
 							<div
 								key={product.id}
 								className='flex flex-col md:flex-row gap-6 w-full items-center'
@@ -105,9 +84,8 @@ export default function Cart() {
 										updateCartQuantity({
 											productId,
 											newQuantity,
-											productsList,
+											productList,
 											setProductList,
-											setAlert,
 										})
 									}
 								/>
@@ -118,7 +96,7 @@ export default function Cart() {
 			</div>
 			<div className='p-6 bg-base-dark border border-gray-200 rounded-md lg:max-w-[423px] w-full h-fit'>
 				<PriceSummary
-					productList={productsList}
+					productList={productList}
 					checkout={false}
 					onClickHandle={goToCheckout}
 				/>

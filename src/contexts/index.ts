@@ -1,2 +1,4 @@
 import { AlertContext, AlertProvider } from './AlertContext'
-export { AlertContext, AlertProvider }
+import { CartContext, CartProvider } from './CartContext'
+
+export { AlertContext, AlertProvider, CartContext, CartProvider }

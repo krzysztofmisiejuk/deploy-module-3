@@ -1,9 +1,8 @@
 'use client'
 import { useContext, useState } from 'react'
-import Image from 'next/image' // Importujemy komponent Image
+import Image from 'next/image'
 import { AlertContext } from '@/contexts'
 import { ProductInCart } from '@/types/types'
-import { handleQuantityChange } from '@/lib/cartActions'
 import {
 	Button,
 	Heading,
@@ -28,6 +27,13 @@ export default function ProductCart({
 }) {
 	const [quantity, setQuantity] = useState<number>(product.quantity)
 	const [, setAlert] = useContext(AlertContext)
+
+	function handleQuantityChange({ newQuantity }: { newQuantity: number }) {
+		setQuantity(newQuantity)
+		if (updateQuantity) {
+			updateQuantity(product.id, newQuantity)
+		}
+	}
 
 	return (
 		<div className='flex flex-col gap-6 p-6 bg-base-dark border border-gray-200 rounded-md flex-1'>
@@ -97,10 +103,6 @@ export default function ProductCart({
 									setQuantity={(newQuantity) =>
 										handleQuantityChange({
 											newQuantity,
-											product,
-											setQuantity,
-											updateQuantity,
-											setAlert,
 										})
 									}
 								/>

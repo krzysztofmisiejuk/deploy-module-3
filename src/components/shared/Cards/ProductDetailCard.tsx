@@ -2,8 +2,7 @@
 import { useContext, useState } from 'react'
 import Image from 'next/image'
 import { Product, ProductInCart } from '@/types/types'
-import { AlertContext } from '@/contexts'
-import { loadCart, saveCart, handleQuantityChange } from '@/lib/cartActions'
+import { AlertContext, CartContext } from '@/contexts'
 import {
 	Button,
 	Heading,
@@ -25,6 +24,7 @@ export default function ProductDetailCard({
 	product: Product
 	randomDate: string
 }) {
+	const { productList, setProductList } = useContext(CartContext)!
 	const [, setAlert] = useContext(AlertContext)
 	const [mainImg, setMainImg] = useState(product.imageUrl || '')
 	const [showDesc, setShowDesc] = useState(false)
@@ -35,14 +35,17 @@ export default function ProductDetailCard({
 		setSelectedColor((prev) => (prev === color ? 'white' : color))
 	}
 
+	function handleQuantityChange({ newQuantity }: { newQuantity: number }) {
+		setQuantity(newQuantity)
+	}
+
 	function addToCart() {
 		if (quantity > product.stock) {
 			setAlert({ text: 'Not enough stock available', type: 'error' })
 			return
 		}
 
-		const cart = loadCart()
-		const existingProduct = cart.find(
+		const existingProduct = productList.find(
 			(item) => item.id === product.id && item.color === selectedColor
 		)
 
@@ -57,14 +60,14 @@ export default function ProductDetailCard({
 				})
 				return
 			}
-			updatedCart = cart.map((item) =>
+			updatedCart = productList.map((item) =>
 				item.id === product.id && item.color === selectedColor
 					? { ...item, quantity: newQuantity }
 					: item
 			)
 		} else {
 			updatedCart = [
-				...cart,
+				...productList,
 				{
 					...product,
 					quantity,
@@ -75,7 +78,7 @@ export default function ProductDetailCard({
 			]
 		}
 
-		saveCart(updatedCart)
+		setProductList(updatedCart)
 		setAlert({
 			text: `${product.brandName} ${product.name} added to cart!`,
 			type: 'success',
@@ -86,7 +89,7 @@ export default function ProductDetailCard({
 		<div className='flex flex-wrap gap-8 py-10 text-neutral-900'>
 			<div className='flex flex-col md:flex-row gap-12 pb-12 flex-grow basis-2/3 min-w-[325px] border-b border-gray-200'>
 				<div className='flex flex-col gap-8 flex-grow basis-1/2 min-w-[325px]'>
-					<div className='relative p-3  min-h-[340px] bg-base-dark border border-gray-200 rounded-md'>
+					<div className='relative p-3 min-h-[340px] bg-base-dark border border-gray-200 rounded-md'>
 						{mainImg && (
 							<div className='w-full h-full rounded-md overflow-hidden relative'>
 								<Image
@@ -118,7 +121,7 @@ export default function ProductDetailCard({
 						<div className='bg-gray-500 flex-grow basis-1/3 min-h-[99px] rounded-md'>
 							<Image
 								src={firstImgSrc}
-								alt='img-2'
+								alt='zdjęcie-2'
 								onClick={() => setMainImg(firstImgSrc)}
 								className={`h-full w-full rounded-md ${
 									mainImg === firstImgSrc &&
@@ -131,7 +134,7 @@ export default function ProductDetailCard({
 						<div className='bg-gray-600 flex-grow basis-1/3 min-h-[99px] rounded-md'>
 							<Image
 								src={secondImgSrc}
-								alt='img-3'
+								alt='zdjęcie-3'
 								onClick={() => setMainImg(secondImgSrc)}
 								className={`h-full w-full rounded-md ${
 									mainImg === secondImgSrc &&
@@ -231,10 +234,6 @@ export default function ProductDetailCard({
 							setQuantity={(newQuantity) =>
 								handleQuantityChange({
 									newQuantity,
-									product,
-									setQuantity,
-									setAlert,
-									updateQuantity: undefined,
 								})
 							}
 							quantity={quantity}

@@ -13,7 +13,6 @@ import {
 	CarouselNext,
 	type CarouselApi,
 } from '@/components/ui/carousel'
-// import Image from 'next/image'
 
 export default function CategoryCarousel({
 	categories,
@@ -83,7 +82,6 @@ export default function CategoryCarousel({
 										//     src={category.imgCarousel}
 										//     alt={category.name}
 										//     className={getImageClass(category.name)}
-										//     fill // Używamy opcji fill, aby obraz wypełniał kontener
 										// />
 										// </div>
 										<img
@@ -110,7 +108,7 @@ export default function CategoryCarousel({
 							'w-3 h-3 rounded-full transition-colors duration-300 cursor-pointer',
 							index === valid ? 'bg-primary-500' : 'bg-gray-200'
 						)}
-						aria-label={`Przejdź do slideu ${index + 1}`}
+						aria-label={`Go to slide ${index + 1}`}
 					/>
 				))}
 			</div>

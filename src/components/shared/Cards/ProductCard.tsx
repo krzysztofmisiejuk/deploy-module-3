@@ -1,7 +1,7 @@
 'use client'
 import Link from 'next/link'
 import { useContext } from 'react'
-import { AlertContext } from '@/contexts'
+import { AlertContext, CartContext } from '@/contexts'
 import { ProductInCart } from '@/types/types'
 import Image from 'next/image'
 import {
@@ -19,29 +19,39 @@ type ProductCardProps = {
 }
 
 export default function ProductCard({ product }: ProductCardProps) {
+	const { productList, setProductList } = useContext(CartContext)!
 	const [, setAlert] = useContext(AlertContext)
 
 	const handleAddToCart = (product: ProductInCart, event: React.MouseEvent) => {
 		event.stopPropagation()
 		event.preventDefault()
 
-		const currentCart: ProductInCart[] = JSON.parse(
-			localStorage.getItem('cart') || '[]'
+		const existingProduct = productList.find(
+			(item) => item.id === product.id && item.color === product.color
 		)
 
-		const existingProductIndex = currentCart.findIndex(
-			(item) => item.id === product.id
-		)
+		let updatedCart: ProductInCart[]
 
-		if (existingProductIndex !== -1) {
-			currentCart[existingProductIndex].quantity =
-				(currentCart[existingProductIndex].quantity || 1) + 1
+		if (existingProduct) {
+			updatedCart = productList.map((item) =>
+				item.id === product.id && item.color === product.color
+					? { ...item, quantity: item.quantity + 1 }
+					: item
+			)
 		} else {
-			currentCart.push({ ...product, quantity: 1 })
+			updatedCart = [
+				...productList,
+				{
+					...product,
+					quantity: 1,
+					hasProtection: true,
+					isSelected: true,
+					color: product.color || 'default',
+				},
+			]
 		}
 
-		localStorage.setItem('cart', JSON.stringify(currentCart))
-
+		setProductList(updatedCart)
 		setAlert({
 			text: `${product.brandName} ${product.name} added to cart successfully!`,
 			type: 'success',

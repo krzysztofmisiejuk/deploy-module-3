@@ -1,7 +1,8 @@
 import { Metadata } from 'next'
 import { Breadcrumps, ProductDetailCard } from '@/components'
 import { getEstimatedArrival } from '@/lib/utils'
-import { Product, ProductDetailParamProps } from '@/types/types'
+import { ProductDetailParamProps } from '@/types/types'
+import { getProductById } from '@/lib/db'
 
 export const metadata: Metadata = {
 	title: 'Product Details',
@@ -11,10 +12,12 @@ export default async function ProductDetails({
 	params,
 }: ProductDetailParamProps) {
 	const { id } = await params
-	const BASE_URL = process.env.BASE_URL
-	const response = await fetch(`${BASE_URL}/api/product/${id}`)
-	const product: Product = await response.json()
+	const product = await getProductById(Number(id))
 	const randomDate: string = getEstimatedArrival()
+
+	if (!product) {
+		return <div>Product not found</div>
+	}
 
 	return (
 		<section className='flex flex-col'>

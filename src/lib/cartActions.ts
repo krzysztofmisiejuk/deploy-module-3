@@ -8,15 +8,6 @@ interface handleQuantityChangeProps {
 	setAlert: (alert: { text: string; type: 'success' | 'error' }) => void
 }
 
-interface updateCartQuantityProps {
-	productId: number
-	newQuantity: number
-	productsList: ProductInCart[]
-	setProductList: (products: ProductInCart[]) => void
-	setAlert: (alert: { text: string; type: 'success' | 'error' }) => void
-	filterSelected?: boolean
-}
-
 export function loadCart(): ProductInCart[] {
 	const products = localStorage.getItem('cart')
 	if (products) {
@@ -73,38 +64,16 @@ export function handleQuantityChange({
 export function updateCartQuantity({
 	productId,
 	newQuantity,
-	productsList,
+	productList,
 	setProductList,
-	setAlert,
-	filterSelected = false,
-}: updateCartQuantityProps) {
-	const product = productsList.find((item) => item.id === productId)
-	if (!product) return
-
-	if (newQuantity > product.stock) {
-		setAlert({
-			text: 'Cannot select more than available stock',
-			type: 'error',
-		})
-		return
-	}
-	if (newQuantity < 1) {
-		setAlert({
-			text: 'Quantity cannot be less than 1',
-			type: 'error',
-		})
-		return
-	}
-
-	const updatedCart = productsList.map((item) =>
-		item.id === productId ? { ...item, quantity: newQuantity } : item
+}: {
+	productId: number
+	newQuantity: number
+	productList: ProductInCart[]
+	setProductList: (products: ProductInCart[]) => void
+}) {
+	const updatedCart = productList.map((product) =>
+		product.id === productId ? { ...product, quantity: newQuantity } : product
 	)
-	saveCart(updatedCart)
-	setProductList(
-		filterSelected
-			? updatedCart.filter((product) => product.isSelected)
-			: updatedCart
-	)
+	setProductList(updatedCart)
 }
-
-

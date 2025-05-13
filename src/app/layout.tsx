@@ -2,7 +2,7 @@ import './globals.css'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import { Alert, Footer, Header, SessionProviderWrapper } from '@/components'
-import { AlertProvider } from '@/contexts'
+import { AlertProvider, CartProvider } from '@/contexts'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '@/lib/authOptions'
 import { Analytics } from '@vercel/analytics/next'
@@ -39,9 +39,11 @@ export default async function RootLayout({
 				<SessionProviderWrapper>
 					<AlertProvider>
 						<div className='flex flex-col gap-2 rounded min-h-screen w-full max-w-[1440px]  mx-auto bg-base-dark-1'>
-							<Header session={session} />
-							<Alert />
-							<main className='flex-1 px-10 overflow-hidden'>{children}</main>
+							<CartProvider>
+								<Header session={session} />
+								<Alert />
+								<main className='flex-1 px-10 overflow-hidden'>{children}</main>
+							</CartProvider>
 							<Footer />
 						</div>
 					</AlertProvider>

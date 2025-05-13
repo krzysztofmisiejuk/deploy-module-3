@@ -1,12 +1,12 @@
 'use client'
-import { useEffect, useState, useContext } from 'react'
+import { useContext } from 'react'
 import { useRouter } from 'next/navigation'
-import { AlertContext } from '@/contexts'
+import { AlertContext, CartContext } from '@/contexts'
 import { generateOrderId } from '@/lib/utils'
-import { loadCart, saveCart, updateCartQuantity } from '@/lib/cartActions'
 import { AddressType, ProductInCart } from '@/types/types'
 import { Address, Shipping, PaymentMethod } from '.'
 import { Heading, Paragraph, PriceSummary, ProductCart } from '@/components'
+import { updateCartQuantity } from '@/lib/cartActions'
 
 export default function Checkout({
 	addresses,
@@ -15,43 +15,22 @@ export default function Checkout({
 	addresses: AddressType[]
 	orderLength: number
 }) {
-	const [productsList, setProductList] = useState<ProductInCart[]>([])
+	const { productList, setProductList } = useContext(CartContext)!
 	const router = useRouter()
 	const [, setAlert] = useContext(AlertContext)
 
-	useEffect(() => {
-		const cart = loadCart()
-		const selectedCart = cart.filter((product) => product.isSelected)
-		setProductList(selectedCart)
-	}, [])
-
-	useEffect(() => {
-		const handleStorageChange = () => {
-			const cart = loadCart()
-			const selectedCart = cart.filter((product) => product.isSelected)
-			setProductList(selectedCart)
-		}
-
-		window.addEventListener('storage', handleStorageChange)
-		return () => {
-			window.removeEventListener('storage', handleStorageChange)
-		}
-	}, [])
+	const selectedProducts = productList.filter((product) => product.isSelected)
 
 	function removeProductFromCart(productId: number) {
-		const cart = loadCart()
-		const updatedCart = cart.filter((item) => item.id !== productId)
-		saveCart(updatedCart)
-		setProductList(updatedCart.filter((product) => product.isSelected))
+		const updatedCart = productList.filter((item) => item.id !== productId)
+		setProductList(updatedCart)
 	}
 
 	function updateProtection(productId: number, hasProtection: boolean) {
-		const cart = loadCart()
-		const updatedCart = cart.map((item) =>
+		const updatedCart = productList.map((item) =>
 			item.id === productId ? { ...item, hasProtection } : item
 		)
-		saveCart(updatedCart)
-		setProductList(updatedCart.filter((product) => product.isSelected))
+		setProductList(updatedCart)
 	}
 
 	async function payNow(data: ProductInCart[]) {
@@ -81,6 +60,7 @@ export default function Checkout({
 			})
 		}
 	}
+
 	return (
 		<section className='flex gap-12 py-10 text-neutral-900 w-full flex-col lg:flex-row'>
 			<div className='flex flex-col gap-8 flex-1 w-full'>
@@ -92,26 +72,27 @@ export default function Checkout({
 					>
 						Your order
 					</Heading>
-					{productsList.length === 0 && <Paragraph>Cart is empty</Paragraph>}
-					{productsList.map((product) => (
-						<ProductCart
-							key={product.id}
-							protection={true}
-							product={product}
-							removeProductFromCart={removeProductFromCart}
-							updateQuantity={(productId, newQuantity) =>
-								updateCartQuantity({
-									productId,
-									newQuantity,
-									productsList: loadCart(),
-									setProductList,
-									setAlert,
-									filterSelected: true,
-								})
-							}
-							updateProtection={updateProtection}
-						/>
-					))}
+					{selectedProducts.length === 0 ? (
+						<Paragraph>Cart is empty</Paragraph>
+					) : (
+						selectedProducts.map((product) => (
+							<ProductCart
+								key={product.id}
+								protection={true}
+								product={product}
+								removeProductFromCart={removeProductFromCart}
+								updateQuantity={(productId, newQuantity) =>
+									updateCartQuantity({
+										productId,
+										newQuantity,
+										productList,
+										setProductList,
+									})
+								}
+								updateProtection={updateProtection}
+							/>
+						))
+					)}
 				</div>
 				<Address addresses={addresses} />
 				<Shipping />
@@ -119,7 +100,7 @@ export default function Checkout({
 			</div>
 			<div className='p-6 bg-base-dark border border-gray-200 rounded-md lg:max-w-[423px] w-full h-fit'>
 				<PriceSummary
-					productList={productsList}
+					productList={selectedProducts}
 					checkout={true}
 					onClickHandle={payNow}
 				/>
