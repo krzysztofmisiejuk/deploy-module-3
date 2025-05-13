@@ -65,6 +65,7 @@ export default function ProductCart({
 							</Heading>
 							{!protection && removeProductFromCart && (
 								<Button
+									aria-label='Remove from cart'
 									className='opacity-70 hover:opacity-100'
 									variant='text'
 									iconRight={<TrashIcon />}
@@ -91,6 +92,7 @@ export default function ProductCart({
 						</Heading>
 						<div className='flex flex-col xs:flex-row'>
 							<Button
+								aria-label='Write note'
 								variant='text'
 								className='whitespace-nowrap'
 							>

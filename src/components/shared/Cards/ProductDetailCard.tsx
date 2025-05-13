@@ -121,7 +121,7 @@ export default function ProductDetailCard({
 						<div className='bg-gray-500 flex-grow basis-1/3 min-h-[99px] rounded-md'>
 							<Image
 								src={firstImgSrc}
-								alt='zdjęcie-2'
+								alt='img-2'
 								onClick={() => setMainImg(firstImgSrc)}
 								className={`h-full w-full rounded-md ${
 									mainImg === firstImgSrc &&
@@ -134,7 +134,7 @@ export default function ProductDetailCard({
 						<div className='bg-gray-600 flex-grow basis-1/3 min-h-[99px] rounded-md'>
 							<Image
 								src={secondImgSrc}
-								alt='zdjęcie-3'
+								alt='img-3'
 								onClick={() => setMainImg(secondImgSrc)}
 								className={`h-full w-full rounded-md ${
 									mainImg === secondImgSrc &&
