@@ -34,7 +34,7 @@ export default function ProductList({
 		for (const key in params) {
 			current.set(key, String(params[key]))
 		}
-		router.push(`?${current.toString()}`)
+		router.push(`?${current.toString()}`, { scroll: false })
 	}
 
 	return (
@@ -92,11 +92,13 @@ export default function ProductList({
 					/>
 				))}
 			</div>
-			<Pagination
-				currentPage={page}
-				totalPages={totalPages}
-				isNoProdusts={products.length === 0}
-			/>
+			{products.length > 0 && (
+				<Pagination
+					currentPage={page}
+					totalPages={totalPages}
+					isNoProdusts={products.length === 0}
+				/>
+			)}
 		</div>
 	)
 }

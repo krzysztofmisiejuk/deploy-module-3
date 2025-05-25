@@ -45,7 +45,6 @@ export default function Checkout({
 			const newOrder = await response.json()
 			if (response.ok) {
 				router.push('/checkout/success')
-				setAlert({ text: `${newOrder.message}`, type: 'success' })
 			} else {
 				setAlert({
 					text: `${newOrder.error || 'Failed to place order'}`,

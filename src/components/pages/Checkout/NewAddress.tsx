@@ -6,7 +6,7 @@ import { useContext } from 'react'
 import { useRouter } from 'next/navigation'
 import { AlertContext } from '@/contexts'
 import { AddressType } from '@/types/types'
-import { newAdressSchema } from '@/schemas/newAdressSchema'
+
 import { Button, Form } from '@/components'
 import { NewAddressSelect, NewAddressTextarea, NewAddressCheckbox } from './'
 import {
@@ -15,6 +15,8 @@ import {
 	postalCodeOptions,
 	provinceOptions,
 } from '@/data/newAdressData'
+import { createNewAddress } from '@/lib/addressActions'
+import { newAdressSchema } from '@/schemas/newAdressSchema'
 
 type NewAdressData = z.infer<typeof newAdressSchema>
 
@@ -22,36 +24,18 @@ export default function NewAddress() {
 	const [, setAlert] = useContext(AlertContext)
 	const router = useRouter()
 
-	async function updateAddress(data: AddressType) {
-		try {
-			const response = await fetch(`/api/address`, {
-				method: 'POST',
-				headers: { 'Content-type': 'application/json' },
-				body: JSON.stringify({
-					country: data.country,
-					province: data.province,
-					city: data.city,
-					zipCode: data.zipCode,
-					street: data.street,
-					isMainAddress: data.isMainAddress,
-				}),
-				cache: 'no-store',
-			})
-			const updatedAdress = await response.json()
-			if (response.ok) {
-				setAlert({ text: `${updatedAdress.message}`, type: 'success' })
-			} else {
-				setAlert({ text: `${updatedAdress.error}`, type: 'error' })
-			}
-		} catch (error) {
-			console.error(error)
-		}
-	}
+	async function onSubmit(data: AddressType) {
+		const response = await createNewAddress(data)
 
-	function onSubmit(data: AddressType) {
-		updateAddress(data)
-		router.push('/checkout')
-		router.refresh()
+		if (response.error) {
+			setAlert({ text: response.error, type: 'error' })
+		} else {
+			setAlert({
+				text: response.message ?? 'Address added successfully',
+				type: 'success',
+			})
+			router.push('/checkout')
+		}
 	}
 
 	const form = useForm<NewAdressData>({
@@ -77,7 +61,7 @@ export default function NewAddress() {
 						<NewAddressSelect
 							form={form}
 							name='country'
-							placeholder='Select your country'
+							placeholder='Country'
 							options={countryOptions}
 						/>
 						<NewAddressSelect
@@ -97,7 +81,7 @@ export default function NewAddress() {
 						<NewAddressSelect
 							form={form}
 							name='zipCode'
-							placeholder='Postal code'
+							placeholder='Zip Code'
 							options={postalCodeOptions}
 						/>
 					</div>

@@ -21,7 +21,7 @@ export default function Pagination({
 
 		const params = new URLSearchParams(Array.from(searchParams.entries()))
 		params.set('page', newPage.toString())
-		router.push(`?${params.toString()}`)
+		router.push(`?${params.toString()}`, { scroll: false })
 	}
 
 	return (

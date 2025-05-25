@@ -1,7 +1,8 @@
 'use client'
-import { useEffect } from 'react'
+import { useEffect, useContext } from 'react'
 import { useRouter } from 'next/navigation'
 import { clearCart } from '@/lib/cartActions'
+
 import { OrderType } from '@/types/types'
 import {
 	CheckCircle,
@@ -11,6 +12,7 @@ import {
 	Paragraph,
 	PriceSummary,
 } from '@/components'
+import { CartContext } from '@/contexts'
 
 export default function CheckoutSuccess({
 	lastOrder,
@@ -18,19 +20,22 @@ export default function CheckoutSuccess({
 	lastOrder: OrderType
 }) {
 	const router = useRouter()
+	const cartContext = useContext(CartContext)
+
+	if (!cartContext) {
+		throw new Error('CartContext not provided')
+	}
+
+	const { setProductList } = cartContext
 
 	useEffect(() => {
 		const timeout = setTimeout(() => {
-			handleClearCart()
+			clearCart(setProductList)
+			router.push('/')
 		}, 3000)
 
 		return () => clearTimeout(timeout)
-	}, [])
-
-	function handleClearCart() {
-		clearCart()
-		router.push('/')
-	}
+	}, [setProductList, router])
 
 	return (
 		<section className='flex items-center justify-center pt-10 pb-20 xl:px-10 text-neutral-900'>
@@ -82,7 +87,10 @@ export default function CheckoutSuccess({
 							productList={lastOrder.products}
 							checkout={true}
 							success={true}
-							onClickHandle={handleClearCart}
+							onClickHandle={() => {
+								clearCart(setProductList)
+								router.push('/')
+							}}
 						/>
 					</div>
 				</div>

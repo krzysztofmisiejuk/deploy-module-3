@@ -29,8 +29,9 @@ export function saveCart(cart: ProductInCart[]) {
 	localStorage.setItem('cart', JSON.stringify(cart))
 }
 
-export function clearCart() {
+export function clearCart(setProductList: (products: ProductInCart[]) => void) {
 	localStorage.removeItem('cart')
+	setProductList([])
 }
 
 export function handleQuantityChange({

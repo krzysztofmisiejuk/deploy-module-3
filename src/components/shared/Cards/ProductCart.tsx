@@ -98,16 +98,20 @@ export default function ProductCart({
 							>
 								Write Note
 							</Button>
-							<div className='pl-5 border-l border-neutral-500'>
-								<QuantityCounter
-									size='md'
-									quantity={quantity}
-									setQuantity={(newQuantity) =>
-										handleQuantityChange({
-											newQuantity,
-										})
-									}
-								/>
+							<div className='flex flex-col '>
+								<div className=' pl-5 border-l border-neutral-500'>
+									<QuantityCounter
+										size='md'
+										currentStock={product.stock}
+										quantity={quantity}
+										setQuantity={(newQuantity) =>
+											handleQuantityChange({
+												newQuantity,
+											})
+										}
+									/>
+								</div>
+								<p className='text-xs mt-1 text-gray-200-button ml-auto'>{`(stock: ${product.stock})`}</p>
 							</div>
 						</div>
 					</div>

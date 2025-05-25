@@ -15,7 +15,7 @@ import {
 } from '@/components'
 
 const firstImgSrc = 'https://i.ibb.co/HTgqJJkJ/monitor.png'
-const secondImgSrc = 'https://i.ibb.co/5xXF2grX/keyboard.png'
+const secondImgSrc = 'https://i.ibb.co/9kDQpnkJ/keyboard-paceholder.png'
 
 export default function ProductDetailCard({
 	product,
@@ -211,11 +211,13 @@ export default function ProductDetailCard({
 					</Paragraph>
 					<div className='flex gap-4'>
 						<Checkbox
+							aria-label='set-white'
 							variant='white'
 							checked={selectedColor === 'white'}
 							onCheckedChange={() => setColor('white')}
 						/>
 						<Checkbox
+							aria-label='set-black'
 							variant='black'
 							checked={selectedColor === 'black'}
 							onCheckedChange={() => setColor('black')}
@@ -231,6 +233,7 @@ export default function ProductDetailCard({
 					</Paragraph>
 					<div className='flex items-center'>
 						<QuantityCounter
+							currentStock={product.stock}
 							setQuantity={(newQuantity) =>
 								handleQuantityChange({
 									newQuantity,
@@ -238,7 +241,7 @@ export default function ProductDetailCard({
 							}
 							quantity={quantity}
 						/>
-						<span className='ml-4'>Stock: {product.stock - quantity}</span>
+						<span className='ml-4'>Stock: {product.stock}</span>
 					</div>
 				</div>
 				<div className='flex items-center justify-between'>

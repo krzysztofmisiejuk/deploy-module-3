@@ -47,12 +47,18 @@ export default async function Products({
 
 	const response = await fetch(apiUrl, { cache: 'no-store' })
 	const data = await response.json()
+	const minAvailablePrice = data.products.length > 0
+    ? Math.min(...data.products.map((product: Product) => product.price))
+    : Math.min(...products.map((product) => product.price))
 
 	return (
 		<section className='flex flex-col items-center justify-center text-neutral-900'>
 			<div className='border-t-1 border-gray-200 mt-10 w-screen'></div>
 			<div className='flex flex-col md:flex-row w-full items-start justify-start flex-1'>
-				<Sidebar products={products} />
+				<Sidebar
+					products={products}
+					minAvailablePrice={minAvailablePrice}
+				/>
 				<ProductList
 					products={data.products}
 					numberOfProducts={data?.totalProducts}

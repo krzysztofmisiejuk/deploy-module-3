@@ -2,12 +2,14 @@
 import { Button, MinusIcon, PlusIcon } from '@/components'
 
 type QuantityCounterProps = {
+	currentStock: number
 	setQuantity: (quantity: number) => void
 	quantity: number
 	size?: 'xxs' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'xxl'
 }
 
 export default function QuantityCounter({
+	currentStock,
 	setQuantity,
 	quantity,
 	size = 'xxl',
@@ -30,7 +32,7 @@ export default function QuantityCounter({
 				size={size}
 				iconLeft={<MinusIcon />}
 				onClick={handleDecrease}
-				aria-label='decrease quantity'
+				aria-label='decrease-quantity'
 			></Button>
 			<span>{quantity}</span>
 			<Button
@@ -38,7 +40,8 @@ export default function QuantityCounter({
 				size={size}
 				iconLeft={<PlusIcon />}
 				onClick={handleIncrease}
-				aria-label='increase quantity'
+				disabled={quantity >= currentStock}
+				aria-label='increase-quantity'
 			></Button>
 		</div>
 	)
