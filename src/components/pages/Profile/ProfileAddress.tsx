@@ -16,7 +16,7 @@ export default function ProfileAddress({ address }: { address: AddressType }) {
 				<Paragraph>Country: {capitalize(address.country)}</Paragraph>
 				<Paragraph>Province: {capitalize(address.province)}</Paragraph>
 				<Paragraph>City: {capitalize(address.city)}</Paragraph>
-				<Paragraph>Zip: {capitalize(address.zipCode)}</Paragraph>
+				<Paragraph>Zip: {address.zipCode}</Paragraph>
 				<Paragraph>Street: {capitalize(address.street)}</Paragraph>
 			</div>
 		</div>
