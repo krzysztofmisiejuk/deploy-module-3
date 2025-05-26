@@ -144,7 +144,7 @@ export async function createAddress(userId: number, addressData: AddressType) {
 		data: {
 			street: addressData.street,
 			city: addressData.city,
-			zipCode: addressData.zipCode,
+			zipCode: String(addressData.zipCode),
 			country: addressData.country,
 			province: addressData.province,
 			isMainAddress: addressData.isMainAddress,

@@ -9,14 +9,10 @@ import { AddressType } from '@/types/types'
 
 import { Button, Form } from '@/components'
 import { NewAddressSelect, NewAddressTextarea, NewAddressCheckbox } from './'
-import {
-	cityOptions,
-	countryOptions,
-	postalCodeOptions,
-	provinceOptions,
-} from '@/data/newAdressData'
+import { countryOptions } from '@/data/newAdressData'
 import { createNewAddress } from '@/lib/addressActions'
 import { newAdressSchema } from '@/schemas/newAdressSchema'
+import { NewAddressInput } from './NewAddressInput'
 
 type NewAdressData = z.infer<typeof newAdressSchema>
 
@@ -44,7 +40,7 @@ export default function NewAddress() {
 			country: '',
 			province: '',
 			city: '',
-			zipCode: '',
+			zipCode: 10000,
 			street: '',
 			isMainAddress: true,
 		},
@@ -64,25 +60,22 @@ export default function NewAddress() {
 							placeholder='Country'
 							options={countryOptions}
 						/>
-						<NewAddressSelect
+						<NewAddressInput
 							form={form}
 							name='province'
 							placeholder='Province'
-							options={provinceOptions}
 						/>
 					</div>
 					<div className='flex flex-col sm:flex-row justify-between gap-10'>
-						<NewAddressSelect
+						<NewAddressInput
 							form={form}
 							name='city'
 							placeholder='City'
-							options={cityOptions}
 						/>
-						<NewAddressSelect
+						<NewAddressInput
 							form={form}
 							name='zipCode'
 							placeholder='Zip Code'
-							options={postalCodeOptions}
 						/>
 					</div>
 					<NewAddressTextarea form={form} />
