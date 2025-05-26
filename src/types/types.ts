@@ -113,7 +113,7 @@ export interface AddressType {
 	id?: number
 	street: string
 	city: string
-	zipCode: number
+	zipCode: number | string
 	province: string
 	country: string
 	isMainAddress?: boolean
