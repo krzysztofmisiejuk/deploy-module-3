@@ -49,7 +49,7 @@ export async function POST(req: Request) {
 			country: newUser.data.address ?? 'unknown',
 			street: 'unknown',
 			city: 'unknown',
-			zipCode: 'unknown',
+			zipCode: 10000,
 			province: 'unknown',
 		}
 
