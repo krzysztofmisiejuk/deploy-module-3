@@ -40,7 +40,7 @@ export default function NewAddress() {
 			country: '',
 			province: '',
 			city: '',
-			zipCode: 10000,
+			zipCode: 0,
 			street: '',
 			isMainAddress: true,
 		},

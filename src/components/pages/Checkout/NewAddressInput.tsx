@@ -39,7 +39,7 @@ export function NewAddressInput({
 							onChange={(e) => {
 								if (name === 'zipCode') {
 									const value = e.target.value
-									field.onChange(value === '' ? 10000 : Number(value))
+									field.onChange(value === '' ? "" : Number(value))
 								} else {
 									field.onChange(e.target.value)
 								}
