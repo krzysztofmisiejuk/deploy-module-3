@@ -7,7 +7,7 @@ export const newAdressSchema = z.object({
 	zipCode: z
 		.number({ required_error: 'Postal code is required' })
 		.int('Postal code must be an integer')
-		.min(10000, 'Postal code must be exactly 5 digits')
+		.min(0o0, 'Postal code must be exactly 5 digits')
 		.max(99999, 'Postal code must be exactly 5 digits'),
 	street: z.string().min(1, 'Address is required'),
 	isMainAddress: z.boolean(),
