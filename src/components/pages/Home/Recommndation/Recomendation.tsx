@@ -1,3 +1,4 @@
+import Loading from '@/components/loading'
 import RecomendationCarousel from './RecomendationCarousel'
 import { getProducts } from '@/lib/db'
 import { Product, ProductInCart } from '@/types/types'
@@ -12,6 +13,10 @@ export default async function Recommendations() {
 		isSelected: false,
 		color: 'default',
 	}))
+
+		if (!randomProducts) {
+			return <Loading />
+		}
 
 	return <RecomendationCarousel products={randomProducts} />
 }
