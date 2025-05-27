@@ -10,7 +10,7 @@ import { CategoriesProps } from '@/types/types'
 
 export default async function Home() {
 	const categories: CategoriesProps[] = await getCategories()
-		if(categories){
+		if(!categories){
 		<Loading/>
 	}
 	return (
