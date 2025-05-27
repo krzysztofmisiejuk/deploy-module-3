@@ -48,18 +48,28 @@ export default async function Products({
 	const response = await fetch(apiUrl, { cache: 'no-store' })
 	const data = await response.json()
 
+	const filteredProducts = products.filter((product: Product) => {
+		const matchedBrand = brand
+			? Array.isArray(brand)
+				? brand.includes(product.brandName)
+				: product.brandName === brand
+			: true
+		const matchedCategory = category
+			? Array.isArray(category)
+				? category.includes(product.categoryName)
+				: product.categoryName === category
+			: true
+		return matchedBrand && matchedCategory
+	})
+
 	const minAvailablePrice =
-		data.products.length > 0
+		filteredProducts.length > 0
 			? Math.min(
-					...data.products.map((product: Product) =>
+					...filteredProducts.map((product: Product) =>
 						product.discount ? product.discount : product.price
 					)
 			  )
-			: Math.min(
-					...products.map((product: Product) =>
-						product.discount ? product.discount : product.price
-					)
-			  )
+			: 0
 
 	return (
 		<section className='flex flex-col items-center justify-center text-neutral-900'>
