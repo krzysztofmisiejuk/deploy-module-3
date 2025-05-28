@@ -14,7 +14,7 @@ import {
 	Checkbox,
 } from '@/components'
 
-const firstImgSrc = 'https://i.ibb.co/HTgqJJkJ/monitor.png'
+const firstImgSrc = 'https://i.ibb.co/nNS4dKRs/monitor-2.png'
 const secondImgSrc = 'https://i.ibb.co/9kDQpnkJ/keyboard-paceholder.png'
 
 export default function ProductDetailCard({

@@ -19,7 +19,11 @@ export default function Nav() {
 						key={pageName}
 						onClick={() => handleNav(route)}
 						className={`
-							${route === pathname ? 'text-primary-400 font-semibold' : 'text-neutral-500'} 
+							${
+								route === pathname
+									? 'text-primary-400 font-semibold cursor-pointer'
+									: 'text-neutral-500'
+							} 
 							hover:text-neutral-900 transition
 						`}
 					>
